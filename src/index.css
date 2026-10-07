@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/*
+ * Colour tokens. Every component uses these names, so a theme switch is just a
+ * change of variables on <html data-theme="...">.
+ */
+:root,
+[data-theme='calm'] {
+  --c-bg: #f7f3ea;
+  --c-surface: #fffdf8;
+  --c-surface-2: #efe8da;
+  --c-text: #1f2a2c;
+  --c-muted: #4a5759;
+  --c-primary: #2f5d62;
+  --c-primary-text: #ffffff;
+  --c-accent: #f2c14e;
+  --c-accent-text: #1f2a2c;
+  --c-success: #2e6b3f;
+  --c-success-bg: #dcefdc;
+  --c-hint-bg: #fdf0c8;
+  --c-border: #c9bfae;
+  --c-focus: #b3541e;
+  --c-cell: #ffffff;
+  --c-cell-active: #fbe7a6;
+  --c-cell-word: #e3efe6;
+}
+
+[data-theme='dark'] {
+  --c-bg: #161c1e;
+  --c-surface: #20292b;
+  --c-surface-2: #2b3638;
+  --c-text: #f1ede4;
+  --c-muted: #c3c9c6;
+  --c-primary: #7fc4c9;
+  --c-primary-text: #0f1a1b;
+  --c-accent: #f2c14e;
+  --c-accent-text: #1f2a2c;
+  --c-success: #9fd8ae;
+  --c-success-bg: #1f3a28;
+  --c-hint-bg: #3e3518;
+  --c-border: #4f5d5f;
+  --c-focus: #ffb37a;
+  --c-cell: #2b3638;
+  --c-cell-active: #5c4c17;
+  --c-cell-word: #24413a;
+}
+
+[data-theme='contrast'] {
+  --c-bg: #000000;
+  --c-surface: #000000;
+  --c-surface-2: #1a1a1a;
+  --c-text: #ffff00;
+  --c-muted: #ffffff;
+  --c-primary: #ffff00;
+  --c-primary-text: #000000;
+  --c-accent: #00ffff;
+  --c-accent-text: #000000;
+  --c-success: #00ff66;
+  --c-success-bg: #003318;
+  --c-hint-bg: #333300;
+  --c-border: #ffffff;
+  --c-focus: #00ffff;
+  --c-cell: #000000;
+  --c-cell-active: #4d4d00;
+  --c-cell-word: #003333;
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-ink: var(--c-text);
+  --color-muted: var(--c-muted);
+  --color-primary: var(--c-primary);
+  --color-on-primary: var(--c-primary-text);
+  --color-accent: var(--c-accent);
+  --color-on-accent: var(--c-accent-text);
+  --color-success: var(--c-success);
+  --color-success-bg: var(--c-success-bg);
+  --color-hint: var(--c-hint-bg);
+  --color-line: var(--c-border);
+  --color-focus: var(--c-focus);
+  --color-cell: var(--c-cell);
+  --color-cell-active: var(--c-cell-active);
+  --color-cell-word: var(--c-cell-word);
+  --font-sans: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+
+/* Base text is 20px at 100% and scales with the text-size setting. */
+html {
+  font-size: calc(125% * var(--text-scale, 1));
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+:focus-visible {
+  outline: 4px solid var(--c-focus);
+  outline-offset: 3px;
+}
+
+/* Minimum touch target for every interactive control. */
+button,
+[role='button'],
+a.touch,
+select,
+input[type='checkbox'],
+input[type='radio'] {
+  min-height: 64px;
+  min-width: 64px;
+}
+
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  transition-duration: 0.01ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes gentle-pop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-gentle-pop { animation: gentle-pop 450ms ease-out both; }
+
+@keyframes float-up {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-60vh); opacity: 0; }
+}
+.animate-float-up { animation: float-up 3.5s ease-out forwards; }
+
+.touch-none-scroll { touch-action: none; }
+
+@media print {
+  nav, .no-print { display: none !important; }
+}
